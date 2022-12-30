@@ -12,10 +12,10 @@ def read_roll(row: dict):
     del row['Attacker']
     del row[name]
 
-    print("Roll: {}".format(name))
-    for k in row.keys():
+    print(f"Roll: {name}")
+    for k in row:
         can_defeat = row[k].strip().lower() == 'win'
-        print(" * {} will defeat {}? {}".format(name, k, can_defeat))
+        print(f" * {name} will defeat {k}? {can_defeat}")
 
     print()
 

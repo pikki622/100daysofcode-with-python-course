@@ -11,7 +11,7 @@ def main():
     print()
     print("TOP SCORES")
     for s in svc.top_scores():
-        print("{} scored {}".format(s.get('player').get('name'), s.get('score')))
+        print(f"{s.get('player').get('name')} scored {s.get('score')}")
     print()
 
     game_id = svc.create_game().get('game_id')
@@ -24,14 +24,18 @@ def main():
         roll = random.choice(rolls)
         rnd = svc.play_round(game_id=game_id, user=name, roll=roll)
         is_over = rnd.get('is_final_round')
-        print("Round {}".format(rnd.get('round_number')))
-        print("{} rolls {}".format(name, roll))
-        print("{} rolls {}".format(rnd.get('opponent').get('name'), rnd.get('computer_roll').get('name')))
-        print("Resulting in {}".format(rnd.get('round_outcome')))
+        print(f"Round {rnd.get('round_number')}")
+        print(f"{name} rolls {roll}")
+        print(
+            f"{rnd.get('opponent').get('name')} rolls {rnd.get('computer_roll').get('name')}"
+        )
+        print(f"Resulting in {rnd.get('round_outcome')}")
         print("")
 
     game_status = svc.game_status(game_id)
-    print("Game is over, outcome: Winner: {}".format(game_status.get('winner').get('name')))
+    print(
+        f"Game is over, outcome: Winner: {game_status.get('winner').get('name')}"
+    )
 
 
 if __name__ == '__main__':

@@ -72,8 +72,7 @@ class Game:
                 print(ve)
                 continue
 
-            win = self._validate_guess(guess)
-            if win:
+            if win := self._validate_guess(guess):
                 guess_str = self.num_guesses == 1 and "guess" or "guesses"
                 print(f'It took you {self.num_guesses} {guess_str}')
                 self._win = True

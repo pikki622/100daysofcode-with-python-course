@@ -29,9 +29,9 @@ class BlogClient(uplink.Consumer):
         if published is None:
             published = datetime.datetime.now().isoformat()
 
-        # noinspection PyTypeChecker
-        resp = self.internal_create_new_entry(title=title, content=content, view_count=views, published=published)
-        return resp
+        return self.internal_create_new_entry(
+            title=title, content=content, view_count=views, published=published
+        )
 
     # Note: For some reason, the name of this method was freaking out the latest version of
     # uplink. So we just named it internal_. That's why it's different from the video.

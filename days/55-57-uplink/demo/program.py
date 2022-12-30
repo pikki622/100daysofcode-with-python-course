@@ -32,7 +32,7 @@ def read_posts():
     response = svc.entry_by_id(selected_id)
 
     selected_post = response.json()
-    print("Details for selected_post: {}".format(selected_post.get('id')))
+    print(f"Details for selected_post: {selected_post.get('id')}")
     print("Title: " + selected_post.get('title'))
     print("Written: " + selected_post.get('published'))
     print("Content: " + selected_post.get('content'))
@@ -51,7 +51,7 @@ def write_post():
 
     print()
     resp = resp.json()
-    print("Created new post successfully: {}".format(resp.get('id')))
+    print(f"Created new post successfully: {resp.get('id')}")
     print()
 
 

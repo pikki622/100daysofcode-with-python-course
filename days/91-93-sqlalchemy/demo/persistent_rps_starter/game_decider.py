@@ -20,10 +20,7 @@ def decide(roll1: Roll, roll2: Roll) -> Decision:
 
     roll1_wins = roll2.name in __winner_lookup[roll1.name]
 
-    if roll1_wins:
-        return Decision.win
-    else:
-        return Decision.lose
+    return Decision.win if roll1_wins else Decision.lose
 
 
 def __build_decisions():
@@ -44,7 +41,7 @@ def __build_roll(row: dict):
     del row[name]
 
     __winner_lookup[name] = set()
-    for k in row.keys():
+    for k in row:
         can_defeat = row[k].strip().lower() == 'win'
         if can_defeat:
             __winner_lookup[name].add(k)

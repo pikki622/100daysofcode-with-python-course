@@ -20,14 +20,14 @@ def main():
             keyword, len(results)))
     except requests.exceptions.ConnectionError:
         msg = "Could not find server. Check your network connection."
-        print("ERROR: " + msg)
+        print(f"ERROR: {msg}")
         app_log.warn(msg)
     except ValueError:
         msg = "You must specify a search term."
-        print("ERROR: " + msg)
+        print(f"ERROR: {msg}")
         app_log.warn(msg)
     except Exception as x:
-        msg = "Oh that didn't work!: {}".format(x)
+        msg = f"Oh that didn't work!: {x}"
         print(msg)
         app_log.exception(x)
 
@@ -40,10 +40,7 @@ def init_logging(filename: str = None):
     else:
         logbook.StreamHandler(sys.stdout, level=level).push_application()
 
-    msg = 'Logging initialized, level: {}, mode: {}'.format(
-        level,
-        "stdout mode" if not filename else 'file mode: ' + filename
-    )
+    msg = f"""Logging initialized, level: {level}, mode: {f'file mode: {filename}' if filename else "stdout mode"}"""
     logger = logbook.Logger('Startup')
     logger.notice(msg)
 

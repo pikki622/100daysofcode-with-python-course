@@ -36,8 +36,12 @@ class GameRound:
         self.record_roll(d.reversed(), self.player2, self.p2_roll, self.player2_wins)
 
         print("RECORDING ROUND")
-        print("Player 1: {}, prior wins {}, outcome: {}".format(self.p1_roll.name, self.player1_wins, d))
-        print("Player 2: {}, prior wins {}, outcome: {}".format(self.p2_roll.name, self.player2_wins, d.reversed()))
+        print(
+            f"Player 1: {self.p1_roll.name}, prior wins {self.player1_wins}, outcome: {d}"
+        )
+        print(
+            f"Player 2: {self.p2_roll.name}, prior wins {self.player2_wins}, outcome: {d.reversed()}"
+        )
         print()
 
         self.is_over = game_service.is_game_over(self.game_id)

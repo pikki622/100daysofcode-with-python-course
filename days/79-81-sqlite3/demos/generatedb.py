@@ -6,16 +6,14 @@ name = ""
 @contextmanager
 def create_db(name):
     try:
-        conn = sqlite3.connect('%s.db' % name)
-        cursor = conn.cursor()
-        yield cursor
+        conn = sqlite3.connect(f'{name}.db')
+        yield conn.cursor()
     finally:
         conn.close()
 
 
 def prompt_for_name():
-    name = input("What would you like to name your test db file?: ")
-    return name
+    return input("What would you like to name your test db file?: ")
 
 if __name__ == "__main__":
     name = prompt_for_name()
@@ -23,4 +21,4 @@ if __name__ == "__main__":
         cursor.execute("""CREATE TABLE test_table
     (col1 TEXT, col2 TEXT, col3 TEXT, col4 INT)
 			""")
-        print('%s.db has been created' % name)
+        print(f'{name}.db has been created')

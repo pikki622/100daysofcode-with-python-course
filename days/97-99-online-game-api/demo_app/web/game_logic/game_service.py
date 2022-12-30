@@ -29,7 +29,7 @@ def get_game_history(game_id: str) -> List[Move]:
 
 def is_game_over(game_id: str) -> bool:
     history = get_game_history(game_id)
-    return any([h.is_winning_play for h in history])
+    return any(h.is_winning_play for h in history)
 
 
 def get_win_count(player: Player) -> int:
@@ -163,7 +163,7 @@ def count_round_wins(player_id: int, game_id: str) -> int:
     for h in history:
         grouped_moves[h.roll_number].append(h)
 
-    for rnd_num, moves in grouped_moves.items():
+    for moves in grouped_moves.values():
         player_move = [m for m in moves if m.player_id == player_id][0]
         opponent_move = [m for m in moves if m.player_id != player_id][0]
 

@@ -16,7 +16,7 @@ api_log = logbook.Logger('API')
 def find_movie_by_title(keyword: str) -> List[Movie]:
     t0 = time.time()
 
-    api_log.trace('Starting search for {}'.format(keyword))
+    api_log.trace(f'Starting search for {keyword}')
 
     if not keyword or not keyword.strip():
         api_log.warn("No keyword supplied")
@@ -25,16 +25,13 @@ def find_movie_by_title(keyword: str) -> List[Movie]:
     url = f'https://movieservice.talkpython.fm/api/search/{keyword}'
 
     resp = requests.get(url)
-    api_log.trace("Request finished, status code {}.".format(resp.status_code))
+    api_log.trace(f"Request finished, status code {resp.status_code}.")
     resp.raise_for_status()
 
     results = resp.json()
     results = create_random_errors(results)
 
-    movies = []
-    for r in results.get('hits'):
-        movies.append(Movie(**r))
-
+    movies = [Movie(**r) for r in results.get('hits')]
     t1 = time.time()
 
     api_log.trace('Finished search for {}, {:,} results in {} ms.'.format(

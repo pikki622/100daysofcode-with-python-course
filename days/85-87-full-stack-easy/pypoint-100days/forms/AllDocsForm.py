@@ -16,7 +16,7 @@ class AllDocsForm (AllDocsFormTemplate):
     self.repeating_panel_docs.items = self.filtered_docs()
     
   def doc_to_text(self, d):
-    return "{} {} {}".format(d["name"], d["contents"], d["category"]["name"])
+    return f'{d["name"]} {d["contents"]} {d["category"]["name"]}'
   
   def filtered_docs(self):
     txt = self.text_box_filter.text

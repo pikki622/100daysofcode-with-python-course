@@ -20,11 +20,7 @@ def find_movie_by_title(keyword: str) -> List[Movie]:
     results = resp.json()
     results = create_random_errors(results)
 
-    movies = []
-    for r in results.get('hits'):
-        movies.append(Movie(**r))
-
-    return movies
+    return [Movie(**r) for r in results.get('hits')]
 
 
 def create_random_errors(results):

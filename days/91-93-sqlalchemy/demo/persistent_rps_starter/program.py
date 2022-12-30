@@ -25,20 +25,14 @@ def build_rolls() -> List[Roll]:
     rolls = []
     with open('battle-table.csv') as fin:
         reader = csv.DictReader(fin)
-        for row in reader:
-            rolls.append(build_roll(row))
-
+        rolls.extend(build_roll(row) for row in reader)
     return rolls
 
 
 def build_roll(row: dict):
     row = dict(row)
     name = row['Attacker']
-    roll = game_service.find_roll(name)
-    if not roll:
-        roll = game_service.create_roll(name)
-
-    return roll
+    return game_service.find_roll(name) or game_service.create_roll(name)
 
 
 def print_header():

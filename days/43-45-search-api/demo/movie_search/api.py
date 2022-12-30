@@ -14,8 +14,4 @@ def find_movie_by_title(keyword: str) -> List[Movie]:
     resp.raise_for_status()
 
     results = resp.json()
-    movies = []
-    for r in results.get('hits'):
-        movies.append(Movie(**r))
-
-    return movies
+    return [Movie(**r) for r in results.get('hits')]

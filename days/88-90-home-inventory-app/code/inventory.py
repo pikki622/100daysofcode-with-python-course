@@ -19,8 +19,7 @@ def first_launch():
 def access_db():
     try:
         conn = sqlite3.connect(DB)
-        cursor = conn.cursor()
-        yield cursor
+        yield conn.cursor()
     finally:
         conn.commit()
         conn.close()
@@ -28,12 +27,13 @@ def access_db():
 
 #A somewhat dirty menu. Improvement Point (make it a dict perhaps)
 def main_menu():
-    menu = {}
-    menu['1'] = "Add Room."
-    menu['2'] = "Add Inventory."
-    menu['3'] = "View Inventory List."
-    menu['4'] = "Total Value."
-    menu['5'] = "Exit."
+    menu = {
+        '1': "Add Room.",
+        '2': "Add Inventory.",
+        '3': "View Inventory List.",
+        '4': "Total Value.",
+        '5': "Exit.",
+    }
     while True:
         print("\n")
         for item, desc in sorted(menu.items()):
@@ -59,9 +59,14 @@ def add_room():
     name = input("\nWhat name would you like to give the room? ")
     name = scrub(name)
     with access_db() as cursor:
-        cursor.execute("CREATE TABLE '" + name.lower() + "' """"
+        cursor.execute(
+            (
+                f"CREATE TABLE '{name.lower()}" + "' "
+                """
                                     (Item TEXT, Value REAL)
-                                    """)
+                                    """
+            )
+        )
         print("\nA room with name %s has been added to the db.\n" % name)
 
 
@@ -70,8 +75,7 @@ def list_rooms():
     room_list = []
     with access_db() as cursor:
         cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
-        for room in cursor:
-            room_list.append(room[0])
+        room_list.extend(room[0] for room in cursor)
     return room_list
 
 
@@ -99,7 +103,7 @@ def add_inventory(selection):
         name = input("\nName of item: ")
         cost = input("Monetary value: ")
         with access_db() as cursor:
-            cursor.execute("INSERT INTO '" + selection + "' VALUES(?, ?)", [name, cost])
+            cursor.execute(f"INSERT INTO '{selection}' VALUES(?, ?)", [name, cost])
 
         cont = input('\nHit Q to quit or any other key to continue: ')
         if cont.lower() == 'q':
@@ -110,7 +114,7 @@ def add_inventory(selection):
 def view_inventory(selection):
     total = 0
     with access_db() as cursor:
-        cursor.execute("SELECT * FROM '" + selection + "'")
+        cursor.execute(f"SELECT * FROM '{selection}'")
         print("\n")
         for data in cursor:
             print("%s: $%d" % (data[0], data[1]))
@@ -124,7 +128,7 @@ def calc_total():
     room_list = list_rooms()
     with access_db() as cursor:
         for room in room_list:
-            cursor.execute("SELECT value FROM '" + room + "'")
+            cursor.execute(f"SELECT value FROM '{room}'")
             for value in cursor:
                 total += value[0]
     print("\nTotal Value of all rooms: $%d" % total)

@@ -13,7 +13,7 @@ def game_loop(player1, player2, rolls):
     p1_wins = 0
     p2_wins = 0
     while count <= 5 or (p1_wins == p2_wins and count > 5):
-        print(" ------------- ROUND {} --------------".format(count))
+        print(f" ------------- ROUND {count} --------------")
         print()
         p1_roll = get_roll_choice(rolls)
         p2_roll = random.choice(rolls)
@@ -22,10 +22,10 @@ def game_loop(player1, player2, rolls):
         if outcome == game_decider.Decision.tie:
             msg = "Tie!"
         elif outcome == game_decider.Decision.win:
-            msg = player1.name + " wins!"
+            msg = f"{player1.name} wins!"
             p1_wins += 1
         else:
-            msg = player1.name + " is defeated!"
+            msg = f"{player1.name} is defeated!"
             p2_wins += 1
 
         final_move = count >= 5 and p1_wins != p2_wins
@@ -35,8 +35,8 @@ def game_loop(player1, player2, rolls):
                                  p2_wins > p1_wins and final_move, count)
 
         print()
-        print(player1.name + " throws " + p1_roll.name)
-        print(player2.name + " throws " + p2_roll.name)
+        print(f"{player1.name} throws {p1_roll.name}")
+        print(f"{player2.name} throws {p2_roll.name}")
         print(msg)
         print()
         print(" -------------------------------------")
@@ -45,9 +45,9 @@ def game_loop(player1, player2, rolls):
         count += 1
 
     if p1_wins < p2_wins:
-        print(player2.name + " wins {} to {}".format(p2_wins, p1_wins))
+        print(f"{player2.name} wins {p2_wins} to {p1_wins}")
     else:
-        print(player1.name + " wins {} to {}".format(p1_wins, p2_wins))
+        print(f"{player1.name} wins {p1_wins} to {p2_wins}")
 
     show_history([player1, player2], rolls, game_id)
 
@@ -60,7 +60,7 @@ def show_history(players, rolls, game_id):
 def get_roll_choice(rolls: List[Roll]):
     print("Rolls: ")
     for idx, r in enumerate(rolls):
-        print("{}. {}".format(idx + 1, r.name))
+        print(f"{idx + 1}. {r.name}")
     print()
     idx = int(input("What roll will you throw? "))
     return rolls[idx - 1]

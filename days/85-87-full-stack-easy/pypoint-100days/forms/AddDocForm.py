@@ -13,16 +13,15 @@ class AddDocForm (AddDocFormTemplate):
     self.drop_down_categories.items = [('select a category', None)] +  [(c, c) for c in utilities.categories]
     self.label_errors.text = ""
 
-  def button_save_click (self, **event_args):
-    errors = self.validate()
-    if errors:
+  def button_save_click(self, **event_args):
+    if errors := self.validate():
       self.label_errors.text = "\n".join(errors)
       return
-    
+
     name = self.text_box_doc_name.text.strip()
     category = self.drop_down_categories.selected_value
     contents = self.text_area_contents.text.strip()
-    
+
     utilities.create_doc(name, category, contents)
     utilities.go_home()
     

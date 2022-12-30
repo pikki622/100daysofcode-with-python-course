@@ -3,10 +3,10 @@
 from datetime import date
 from datetime import datetime
 
-datetime.today()
+datetime.now()
 # datetime.datetime(2021, 1, 19, 14, 38, 52, 133483)
 
-today = datetime.today()
+today = datetime.now()
 
 type(today)
 # <class 'datetime.datetime'>
@@ -36,6 +36,8 @@ christmas
 
 # We need to use != & == rather than is / is not for comparison. Sorry for the mistake in the video.
 if christmas != today_date:
-    print("Sorry there are still " + str((christmas - today_date).days) + " until Christmas!")
+    print(
+        f"Sorry there are still {str((christmas - today_date).days)} until Christmas!"
+    )
 else:
     print("Yay it's Christmas!")

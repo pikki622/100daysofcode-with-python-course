@@ -15,7 +15,7 @@ def main():
     except ValueError:
         print("ERROR: You must specify a search term.")
     except Exception as x:
-        print("Oh that didn't work!: {}".format(x))
+        print(f"Oh that didn't work!: {x}")
 
 
 if __name__ == '__main__':

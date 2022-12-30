@@ -22,17 +22,11 @@ def find_movie_by_imdb_code(imdb_code: str) -> List[Movie]:
     resp = requests.get(url)
     resp.raise_for_status()
     result = resp.json()
-    if not result.get('imdb_code'):
-        return []
-
-    return [Movie(**result)]
+    return [Movie(**result)] if result.get('imdb_code') else []
 
 
 def __get_results(url):
     resp = requests.get(url)
     resp.raise_for_status()
     results = resp.json()
-    movies = []
-    for r in results.get('hits'):
-        movies.append(Movie(**r))
-    return movies
+    return [Movie(**r) for r in results.get('hits')]

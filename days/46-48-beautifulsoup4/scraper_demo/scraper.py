@@ -10,13 +10,11 @@ def pull_site():
     return raw_site_page
 
 def scrape(site):
-    header_list = []
     #Create BeautifulSoup object
     soup = bs4.BeautifulSoup(site.text, 'html.parser')
     html_header_list = soup.select('.projectHeader')
 
-    for headers in html_header_list:
-        header_list.append(headers.getText())
+    header_list = [headers.getText() for headers in html_header_list]
     for headers in header_list:
         print(headers)
 

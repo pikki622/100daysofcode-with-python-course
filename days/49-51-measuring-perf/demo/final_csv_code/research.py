@@ -32,14 +32,12 @@ def parse_row(row):
     row['actual_max_temp'] = int(row['actual_max_temp'])
     row['actual_precipitation'] = float(row['actual_precipitation'])
 
-    record = Record(
+    return Record(
         date=row.get('date'),
         actual_min_temp=row.get('actual_min_temp'),
         actual_max_temp=row.get('actual_max_temp'),
         actual_precipitation=row.get('actual_precipitation'),
     )
-
-    return record
 
 # Before simpler parse_row:
 # 99    0.050    0.001    0.759    0.008 research.py:17(init)

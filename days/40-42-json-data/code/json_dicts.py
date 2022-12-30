@@ -22,14 +22,9 @@ for item in data['mounts']['collected']:
 for item in data['mounts']['collected']:
     pprint(item['name'])
 
-#Prints just the data associated with the 'name' key.
-
-
-is_flying = []
-for mount in data['mounts']['collected']:
-    if mount['isFlying']:
-        is_flying.append(mount)
-
+is_flying = [
+    mount for mount in data['mounts']['collected'] if mount['isFlying']
+]
 #Collects all of the applicable mounts and stores them as a list of dicts
 
 #You can then work with the data as normal:
